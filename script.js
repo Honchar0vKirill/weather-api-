@@ -1,28 +1,41 @@
-/*let xhr = new XMLHttpRequest()
-xhr.open("GET", "https://api.monobank.ua/bank/currency") // open request
-xhr.setRequestHeader("Content-Type", "application/json") // set headers 
-xhr.send() // send request
-xhr.onload = () => { 
-    let response = xhr.response
-    response = JSON.parse(response)
-    console.log(response) // print response
-}*/
 const weatherEl = document.querySelector('#temperature');
 let cityEl = document.querySelector('#city');
 let apiKey = 'f4eeb4643efd48dba87173420230905'
-let url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=Poltava&aqi=no`
+let inputEl = document.querySelector('#discoverCity')
+let submitBtn = document.querySelector('#btnSubmit');
 
-cityEl.innerHTML = `Weather in <span>Poltawa</span>`
-// 2 params - login and password 
-// http://example.com/signin?login=admin&password=123
+cityEl.innerHTML = `Weather in <span>${localStorage.getItem('city')}</span>`
 
-let xhr = new XMLHttpRequest();
-xhr.open("GET", url);
-xhr.setRequestHeader("Content-Type", "application/json");
-xhr.send();
-xhr.onload = () => {
-    let weather = xhr.response
-    weather = JSON.parse(weather)
-    console.log(weather) // print weather
-    weatherEl.innerHTML = `Temp now: ${weather.current.temp_c}°C`
-};
+inputEl.addEventListener('input', () => {
+    localStorage.setItem('city', inputEl.value);
+
+})
+
+//submitBtn.addEventListener('input', () => {
+  //  let url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${inputEl.value}&aqi=no`
+    //let xhr = new XMLHttpRequest();
+    //xhr.open('GET', url);
+    //xhr.setRequestHeader('Content-Type', 'application/json');
+    //xhr.send();
+    //xhr.onload = () => {
+      //  let response = JSON.parse(xhr.response);
+        //console.log(response);
+    //};
+//})
+
+let getCity = localStorage.getItem('city');
+if (city.length > 0) {
+    let url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${inputEl.value}&aqi=no`
+    axios.get(url)
+        .then((res) =>{
+            return res.json
+        })
+        .then((data) => {
+            console.log(data);
+        })
+}    
+
+else {
+        alert('No city found')
+}
+
